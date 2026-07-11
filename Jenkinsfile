@@ -8,15 +8,21 @@ pipeline {
             }
         }
 
+        stage('Crear archivo de entorno') {
+            steps {
+                bat 'copy /Y .env.example .env'
+            }
+        }
+
         stage('Detener contenedores') {
             steps {
-                bat 'docker compose down'
+                bat 'docker compose -p wordpress-jenkins down'
             }
         }
 
         stage('Levantar contenedores') {
             steps {
-                bat 'docker compose up -d'
+                bat 'docker compose -p wordpress-jenkins up -d'
             }
         }
 
